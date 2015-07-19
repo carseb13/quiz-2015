@@ -11,4 +11,7 @@ router.get('/', function(req, res) {
 //se configura que la ruta quizes/question sera manejada con el controlador quizController
 router.get('/quizes/question',quizController.question);
 router.get('/quizes/answer',quizController.answer);
+router.get('/author',function(req,res){
+	res.render('author',{app_title: 'Quiz 2015 - Cesquivel'});
+});
 module.exports = router;
