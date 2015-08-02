@@ -7,10 +7,14 @@ router.get('/', function(req, res) {
 	//se enruta la salida para la raiz del sitio
   res.render('index', { title: 'QUIZ 2015' });
 });
+//Autoload de comandos con :quizId
+router.param('quizId',quizController.load); //autoload
 
 //se configura que la ruta quizes/question sera manejada con el controlador quizController
-router.get('/quizes/question',quizController.question);
-router.get('/quizes/answer',quizController.answer);
+//router.get('/quizes/question',quizController.index);
+router.get('/quizes',quizController.index);
+router.get('/quizes/:quizId(\\d+)',quizController.show);
+router.get('/quizes/:quizId(\\d+)/answer',quizController.answer);
 router.get('/author',function(req,res){
 	res.render('author',{app_title: 'Quiz 2015 - Cesquivel'});
 });
