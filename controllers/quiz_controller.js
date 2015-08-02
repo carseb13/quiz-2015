@@ -17,7 +17,6 @@ exports.load=function(req,res,next,quizId){
 //get /quizes
 exports.index=function(req,res){
 	var filtro={};
-
 	if(req.query.search){
 		var valor = '%'+req.query.search.trim().replace(' ','%')+'%';
 		filtro= {where:["pregunta like ?",valor]};
@@ -26,14 +25,10 @@ exports.index=function(req,res){
 	models.Quiz.findAll(filtro).then(function(quizes){
 			res.render('quizes/index.ejs',{quizes:quizes});
 	});
-
-	
 }
 
 exports.show= function(req,res){
-//	models.Quiz.find(req.params.quizId).then(function(quiz){
-		res.render('quizes/show',{quiz:req.quiz});
-//	});
+	res.render('quizes/show',{quiz:req.quiz});
 }
 
 exports.question= function(req,res){
@@ -50,5 +45,4 @@ exports.answer= function(req,res){
 		resultado='Correcto';
 	}
 	res.render('quizes/answer',{quiz:req.quiz,respuesta:resultado});
-	
 }
