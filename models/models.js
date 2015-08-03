@@ -35,19 +35,23 @@ sequelize.sync().success(function(){
 		if(count===0){
 			Quiz.create({
 				pregunta:'Capital de Italia',
-				respuesta:'Roma'
+				respuesta:'Roma',
+				tema:'otro'
 			});
 			Quiz.create({
 				pregunta:'Capital de Paraguay',
-				respuesta:'Asunción'
+				respuesta:'Asunción',
+				tema:'otro'
 			});
 			Quiz.create({
 				pregunta:'Capital de Alemania',
-				respuesta:'Berlín'
+				respuesta:'Berlín',
+				tema:'otro'
 			});
 			Quiz.create({
 				pregunta:'Capital de Portugal',
-				respuesta:'Lisboa'
+				respuesta:'Lisboa',
+				tema:'otro'
 			}).success(function(){
 				console.log('Base de datos inicializada');
 			});
