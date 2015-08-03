@@ -19,7 +19,7 @@ router.get('/quizes',quizController.index);
 router.get('/quizes/:quizId(\\d+)',quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer',quizController.answer);
 router.get('/author',function(req,res){
-	res.render('author',{app_title: 'Quiz 2015 - Cesquivel'});
+	res.render('author',{app_title: 'Quiz 2015 - Cesquivel',errors:[]});
 });
 //rutas de quiz para CRUD
 router.get('/quizes/new',quizController.new);

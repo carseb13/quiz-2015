@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser'); //importar
 var bodyParser = require('body-parser');    // paquetes
 var partials = require('express-partials'); //con middlewares.
+var methodOverride = require('method-override');
+
 var routes = require('./routes/index'); //importar enrutadores
 
 var app = express(); //se crea nueva aplicacion express
@@ -20,6 +22,7 @@ app.use(bodyParser.json()); //instalar middlewares
 //app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes); //instalar enrutadores
