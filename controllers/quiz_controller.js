@@ -16,7 +16,8 @@ exports.load=function(req,res,next,quizId){
 
 //get /quizes
 exports.index=function(req,res){
-	var filtro={order: 'pregunta ASC'};
+	//var filtro={order: 'pregunta ASC'};
+	var filtro={order: [['tema','ASC'],['pregunta','DESC']]};
 	if(req.query.search){
 		var valor = '%'+req.query.search.trim().replace(' ','%')+'%';
 		filtro.where=["pregunta like ?",valor];
