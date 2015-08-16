@@ -9,11 +9,13 @@ Pregunta: <%= quiz.pregunta %> <p>
 <p><strong>Comentarios:</strong></p>
 <ol>
 <% for(index in quiz.Comments){ %>
-	<li> - <%= quiz.Comments[index].texto %></li>
-	<% if(session.user && !quiz.Comments[index].publicado){%>
-		<a href='/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id %>/publish' >
-		<button>Publicar</button>
-		</a> 
-	<%}%>	
+	<%if(quiz.Comments[index].publicado || session.user){%>
+		<li> - <%= quiz.Comments[index].texto %></li>
+		<% if(session.user && !quiz.Comments[index].publicado){%>
+			<a href='/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id %>/publish' >
+			<button>Publicar</button>
+			</a> 
+		<%}%>	
+	<%}%>
 <%}%>
 </ol>
