@@ -3,22 +3,23 @@
 <input type="submit" value="Buscar">
 <input type="reset" value="limpiar">
 </form>
-<table style='text-align:left;'>
+<dl style='text-align:left;'>
 <% var tema=''; var i; for(i=0; i<quizes.length; i++){ 	%>
 	<% if(tema!=quizes[i].tema){%>
-		<tr><th colspan=3 ><%= quizes[i].tema %></th></tr> 
+		<dt><%= quizes[i].tema %></dt>
 	<% 	tema=quizes[i].tema; }%>
-	<td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
-	<td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
-	<td>
+	<dl><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
+	<% if(session.user){ %>
+	<a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a>
 	<form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
 		<button type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>?');">
 		Borrar
 		</button>
 	</form>
-	</td>
-	</tr>
-	
+	<% } %>
+	</dl>
 <% } %>
-</table>
-<a href="quizes/new">Crear nueva pregunta </a>
+</dl>
+<% if(session.user){ %>
+	<a href="quizes/new">Crear nueva pregunta </a>
+<% } %>
