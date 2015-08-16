@@ -1,15 +1,14 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser'); //importar
-var bodyParser = require('body-parser');    // paquetes
-var partials = require('express-partials'); //con middlewares.
-var methodOverride = require('method-override');
-
-var routes = require('./routes/index'); //importar enrutadores
-
-var app = express(); //se crea nueva aplicacion express
+var express         = require('express');
+var path            = require('path');
+var favicon         = require('serve-favicon');
+var logger          = require('morgan');
+var cookieParser    = require('cookie-parser'); //importar
+var bodyParser      = require('body-parser');    // paquetes
+var partials        = require('express-partials'); //con middlewares.
+var methodOverride  = require('method-override');
+var session         = require('express-session');
+var routes          = require('./routes/index'); //importar enrutadores
+var app             = express(); //se crea nueva aplicacion express
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views')); //instalar el generador de vistas
@@ -21,12 +20,18 @@ app.use(logger('dev'));
 app.use(bodyParser.json()); //instalar middlewares
 //app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser('Quiz_2015'));
+app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(function(req,res,next){
+    if(!req.path.match(/\/login|\/logout/)){
+        req.session.redir=req.path;
+    }
+    res.locals.session = req.session;
+    next();
+});
 app.use('/', routes); //instalar enrutadores
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     /*para el resto de las rutas desconocidas, se genera error 404 de HTTP*/
@@ -34,7 +39,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
 // error handlers
 // development error handler
 // will print stacktrace
