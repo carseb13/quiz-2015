@@ -24,13 +24,25 @@ app.use(cookieParser('Quiz_2015'));
 app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req,res,next){
+/*app.use(function(req,res,next){
     if(!req.path.match(/\/login|\/logout/)){
         req.session.redir=req.path;
     }
     res.locals.session = req.session;
+
+    if(req.session.user){
+        if(req.session.login_time){
+            var lapso =(new Date()).getTime() - req.session.login_time.getTime();
+            if(lapso > 120000){
+                res.redirect('/logout');
+                return;
+            }
+        }else{
+            req.session.login_time = new Date();
+        }
+    }
     next();
-});
+});*/
 app.use('/', routes); //instalar enrutadores
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
