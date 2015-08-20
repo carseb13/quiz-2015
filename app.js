@@ -30,6 +30,17 @@ app.use(function(req,res,next){
     }
     res.locals.session = req.session;
 
+    if(req.session.user){
+        if(req.session.login_time){
+            var lapso =(new Date()).getTime() - req.session.login_time.getTime();
+            if(lapso > 120000){
+                res.redirect('/logout');
+                return;
+            }
+        }else{
+            req.session.login_time = new Date();
+        }
+    }
     next();
 });
 app.use('/', routes); //instalar enrutadores
